@@ -9,7 +9,8 @@ const apps = [
     description: 'Powerful task manager & organizer',
     icon: '/icons/taskmaster.png',
     backgroundColor: 'bg-gradient-to-br from-blue-500/20 to-blue-700/20',
-    appStoreLink: 'https://apps.apple.com/app/taskmaster'
+    appStoreLink: 'https://apps.apple.com/app/taskmaster',
+    slug: 'taskmaster'
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ const apps = [
     description: 'Pomodoro timer with analytics',
     icon: '/icons/focustime.png',
     backgroundColor: 'bg-gradient-to-br from-red-500/20 to-red-700/20',
-    appStoreLink: 'https://apps.apple.com/app/focustime'
+    appStoreLink: 'https://apps.apple.com/app/focustime',
+    slug: 'focustime'
   },
   {
     id: 3,
@@ -25,7 +27,8 @@ const apps = [
     description: 'Elegant note taking & organization',
     icon: '/icons/noteflow.png',
     backgroundColor: 'bg-gradient-to-br from-green-500/20 to-green-700/20',
-    appStoreLink: 'https://apps.apple.com/app/noteflow'
+    appStoreLink: 'https://apps.apple.com/app/noteflow',
+    slug: 'noteflow'
   },
 ];
 
@@ -46,6 +49,7 @@ export default function AppShowcase() {
             icon={app.icon}
             backgroundColor={app.backgroundColor}
             appStoreLink={app.appStoreLink}
+            slug={app.slug}
           />
         ))}
       </div>

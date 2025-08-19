@@ -11,20 +11,19 @@ export default function Home() {
         
         <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-6xl">
           {/* App Card 1 */}
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl p-8 text-white flex flex-col items-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="w-20 h-20 rounded-xl mb-6 overflow-hidden shadow-md">
-              <img 
-                src="icons/fintools.png" 
-                alt="FinTools App Icon" 
-                className="w-full h-full object-cover"
-              />
+          <a href="/apps/fintools" className="block">
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl p-8 text-white flex flex-col items-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
+              <div className="w-20 h-20 rounded-xl mb-6 overflow-hidden shadow-md">
+                <img 
+                  src="icons/fintools.png" 
+                  alt="FinTools App Icon" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold mb-3">FinTools</h3>
+              <p className="text-sm text-center text-gray-400">Financial tools & plan</p>
             </div>
-            <h3 className="text-xl font-bold mb-3">FinTools</h3>
-            <p className="text-sm text-center mb-6 text-gray-400">Financial tools & plan</p>
-            <a href="#" className="px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors shadow-md">
-              Download
-            </a>
-          </div>
+          </a>
           
         </div>
         
