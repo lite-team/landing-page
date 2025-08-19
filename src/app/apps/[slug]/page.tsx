@@ -57,9 +57,9 @@ const appsData: { [key: string]: any } = {
 };
 
 interface AppPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -68,8 +68,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: AppPageProps) {
-  const app = appsData[params.slug];
+export async function generateMetadata({ params }: AppPageProps) {
+  const { slug } = await params;
+  const app = appsData[slug];
   
   if (!app) {
     return {
@@ -84,8 +85,9 @@ export function generateMetadata({ params }: AppPageProps) {
   };
 }
 
-export default function AppPage({ params }: AppPageProps) {
-  const app = appsData[params.slug];
+export default async function AppPage({ params }: AppPageProps) {
+  const { slug } = await params;
+  const app = appsData[slug];
 
   if (!app) {
     notFound();
