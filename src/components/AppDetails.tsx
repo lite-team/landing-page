@@ -42,7 +42,7 @@ export default function AppDetails({
   stats
 }: AppDetailsProps) {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Navigation */}
       <Container className="py-6">
         <Link 
@@ -139,7 +139,9 @@ export default function AppDetails({
         </div>
       </Container>
       
-      <Footer />
+      <div className="flex-grow">
+        <Footer />
+      </div>
     </div>
   );
 }

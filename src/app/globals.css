@@ -10,14 +10,13 @@
   --background-end-rgb: 23, 27, 33;
 }
 
+html {
+  background: black;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      rgb(var(--background-start-rgb)),
-      rgb(var(--background-end-rgb))
-    )
-    fixed;
+  background: black;
   font-family: 'Inter', sans-serif;
 }
 
