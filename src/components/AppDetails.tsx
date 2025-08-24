@@ -134,7 +134,7 @@ export default function AppDetails({
           href="/" 
           className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
         >
-          ← Back to Home
+          {showStickyNav ? '' : '← Back to Home'}
         </Link>
       </Container>
 
