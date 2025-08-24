@@ -5,7 +5,7 @@ import AppDetails from '@/components/AppDetails';
 const appsData: { [key: string]: any } = {
   'fintools': {
     name: 'FinTools',
-    tagline: 'Financial tools & plan',
+    tagline: 'Financial tools',
     description: 'Comprehensive financial planning and analysis tools',
     icon: '/icons/fintools.png',
     backgroundColor: 'bg-gradient-to-br from-emerald-500/20 to-emerald-700/20',
@@ -16,35 +16,20 @@ const appsData: { [key: string]: any } = {
       rating: 4.5
     },
     features: [
-      {
-        icon: '💰',
-        title: 'Budget Planning',
-        description: 'Create and manage comprehensive budgets with smart categorization and spending insights.'
-      },
-      {
-        icon: '📊',
-        title: 'Financial Analytics',
-        description: 'Track your financial health with detailed charts and reports on income, expenses, and savings.'
-      },
-      {
-        icon: '🎯',
-        title: 'Goal Setting',
-        description: 'Set and track financial goals with automated savings plans and milestone celebrations.'
-      },
-      {
-        icon: '📈',
-        title: 'Investment Tracking',
-        description: 'Monitor your investment portfolio with real-time updates and performance analysis.'
-      },
-      {
-        icon: '🔔',
-        title: 'Smart Alerts',
-        description: 'Get notified about bill due dates, budget limits, and financial opportunities.'
-      },
-      {
+     {
         icon: '🔒',
-        title: 'Bank Security',
-        description: 'Enterprise-grade security with bank-level encryption to protect your financial data.'
+        title: 'Privacy First',
+        description: 'Your financial data stays secure with end-to-end encryption and local data processing.'
+      },
+      {
+        icon: '✨',
+        title: 'Intuitive and Details',
+        description: 'Beautiful, user-friendly interface with comprehensive details for complete financial visibility.'
+      },
+      {
+        icon: '🍎',
+        title: 'Sync Cross Apple Devices',
+        description: 'Seamless synchronization across all your Apple devices with real-time updates via iCloud.'
       }
     ],
     screenshots: [
