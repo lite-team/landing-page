@@ -182,10 +182,7 @@ export default function AppDetails({
         <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl p-8 text-white shadow-lg hover:shadow-xl transition-all duration-300">
           {/* Screenshots Preview */}
           <div>
-            <div 
-              className={`grid gap-4`}
-              style={{ gridTemplateColumns: `repeat(${screenshots.length}, 1fr)` }}
-            >
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {screenshots.map((screenshot, index) => (
                 <div key={index} className="w-full bg-gray-700 rounded-lg border border-gray-600 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-white/10 cursor-pointer group">
                   <img 
