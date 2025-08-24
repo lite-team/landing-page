@@ -6,7 +6,7 @@ export default function Home() {
       <main className="flex-1 flex flex-col items-center justify-center bg-black p-8">
         <h1 className="text-4xl font-bold text-white mb-6">Lite Team</h1>
         <p className="text-xl text-gray-300 mb-8 max-w-2xl text-center">
-          Indie developers building lightweight, efficient applications for a better user experience.
+          Indie developers building minimal, efficient, smooth applications.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-6xl">
@@ -21,7 +21,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-xl font-bold mb-3">FinTools</h3>
-              <p className="text-sm text-center text-gray-400">Financial tools & plan</p>
+              <p className="text-sm text-center text-gray-400">Financial tools</p>
             </div>
           </a>
           

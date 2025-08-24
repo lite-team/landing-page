@@ -5,21 +5,16 @@ import AppDetails from '@/components/AppDetails';
 const appsData: { [key: string]: any } = {
   'fintools': {
     name: 'FinTools',
-    tagline: 'Financial tools',
+    tagline: 'Minimal calculators for Savings, Loans & Financial Freedom',
     description: 'Comprehensive financial planning and analysis tools',
     icon: '/icons/fintools.png',
     backgroundColor: 'bg-gradient-to-br from-emerald-500/20 to-emerald-700/20',
     appStoreLink: 'https://apps.apple.com/app/fintools',
-    macAppStoreLink: 'https://apps.apple.com/app/fintools-mac',
-    stats: {
-      users: 'Over 15k+',
-      rating: 4.5
-    },
     features: [
      {
         icon: '🔒',
         title: 'Privacy First',
-        description: 'Your financial data stays secure with end-to-end encryption and local data processing.'
+        description: 'Your financial data stays secure with local data storage and processing.'
       },
       {
         icon: '✨',
@@ -33,10 +28,9 @@ const appsData: { [key: string]: any } = {
       }
     ],
     screenshots: [
-      '/screenshots/fintools-1.png',
-      '/screenshots/fintools-2.png',
-      '/screenshots/fintools-3.png',
-      '/screenshots/fintools-4.png'
+      '/apps/fintools/screenshot-1.jpg',
+      '/apps/fintools/screenshot-2.jpg',
+      '/apps/fintools/screenshot-3.jpg'
     ]
   }
 };
