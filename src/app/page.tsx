@@ -15,7 +15,7 @@ export default function Home() {
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl p-8 text-white flex flex-col items-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
               <div className="w-20 h-20 rounded-xl mb-6 overflow-hidden shadow-md">
                 <img 
-                  src="icons/fintools.png" 
+                  src="/icons/fintools.png" 
                   alt="FinTools App Icon" 
                   className="w-full h-full object-cover"
                 />
