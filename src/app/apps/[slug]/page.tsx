@@ -9,7 +9,7 @@ const appsData: { [key: string]: any } = {
     description: 'Comprehensive financial planning and analysis tools',
     icon: '/icons/fintools.png',
     backgroundColor: 'bg-gradient-to-br from-emerald-500/20 to-emerald-700/20',
-    appStoreLink: 'https://apps.apple.com/app/fintools',
+    appStoreLink: 'https://apps.apple.com/us/app/fintools/id6746293973',
     features: [
      {
         icon: '🔒',
