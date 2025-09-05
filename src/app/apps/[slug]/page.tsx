@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import AppDetails from '@/components/AppDetails';
+import { Analytics } from "@vercel/analytics/next"
 
 // App data - in a real app, this would come from a database or CMS
 const appsData: { [key: string]: any } = {
