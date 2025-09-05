@@ -74,6 +74,8 @@ export default async function AppPage({ params }: AppPageProps) {
   }
 
   return (
+    <div>
+        <Analytics />
     <AppDetails
       name={app.name}
       tagline={app.tagline}
@@ -87,5 +89,6 @@ export default async function AppPage({ params }: AppPageProps) {
       screenshots={app.screenshots}
       stats={app.stats}
     />
+    </div>
   );
 }

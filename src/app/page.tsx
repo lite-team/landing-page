@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next"
 export default function Home() {
   return (
     <div className="min-h-screen bg-black flex flex-col">
+      <Analytics />
       <main className="flex-1 flex flex-col items-center justify-center bg-black p-8">
         <h1 className="text-4xl font-bold text-white mb-6">Lite Team</h1>
         <p className="text-xl text-gray-300 mb-8 max-w-2xl text-center">
