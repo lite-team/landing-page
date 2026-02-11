@@ -68,7 +68,7 @@ function FAQItem({ question, answer, isOpen, onClick }: { question: string, answ
         onClick={onClick}
         className="w-full py-6 flex items-center justify-between text-left group"
       >
-        <span className="text-lg font-medium text-white group-hover:text-blue-400 transition-colors">{question}</span>
+        <span className="text-lg font-medium text-white group-hover:text-green-400 transition-colors">{question}</span>
         <svg
           className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
@@ -98,7 +98,7 @@ export default function GalZipPage() {
   const showSticky = scrollY > 600;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white selection:bg-blue-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white selection:bg-green-500/30 overflow-x-hidden">
 
       {/* Dynamic Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -119,7 +119,7 @@ export default function GalZipPage() {
               href="https://apps.apple.com/app/galzip"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#007AFF] text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-[#0066DD] transition-colors shadow-lg shadow-blue-500/25"
+              className="bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all shadow-lg shadow-green-500/25"
             >
               Download Free
             </a>
@@ -168,7 +168,7 @@ export default function GalZipPage() {
                     href="https://apps.apple.com/app/galzip"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="h-14 px-8 rounded-full bg-[#007AFF] text-white font-semibold text-lg flex items-center gap-3 transition-all hover:bg-[#0066DD] hover:scale-105 shadow-xl shadow-blue-500/30"
+                    className="h-14 px-8 rounded-full bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white font-semibold text-lg flex items-center gap-3 transition-all hover:opacity-90 hover:scale-105 shadow-xl shadow-green-500/30"
                   >
                     <svg className="w-6 h-6" viewBox="0 0 384 512" fill="currentColor">
                       <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z" />
@@ -202,7 +202,7 @@ export default function GalZipPage() {
                     <span className="text-sm text-gray-500">Before</span>
                   </div>
                   <div className="flex items-center">
-                    <svg className="w-8 h-8 text-[#007AFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-8 h-8 text-[#00C853]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </div>
@@ -283,7 +283,7 @@ export default function GalZipPage() {
                     Smart quality is picked automatically for the best results. Batch compress hundreds of photos in seconds. Keep or delete originals—you decide.
                   </p>
                   <div className="mt-6 h-2 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full w-3/4 bg-gradient-to-r from-[#007AFF] to-[#27AE60] rounded-full animate-pulse"></div>
+                    <div className="h-full w-3/4 bg-gradient-to-r from-[#00C853] to-[#00A847] rounded-full animate-pulse"></div>
                   </div>
                 </div>
               </AnimatedSection>
@@ -357,13 +357,13 @@ export default function GalZipPage() {
                 <AnimatedSection key={idx} delay={idx * 100}>
                   <div className="relative">
                     {idx < 3 && (
-                      <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#007AFF]/50 to-transparent -translate-x-1/2 z-0"></div>
+                      <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#00C853]/50 to-transparent -translate-x-1/2 z-0"></div>
                     )}
                     <div className="relative z-10 text-center">
-                      <div className="w-24 h-24 mx-auto rounded-full bg-white dark:bg-white/10 border-2 border-[#007AFF]/30 flex items-center justify-center mb-4 shadow-lg">
+                      <div className="w-24 h-24 mx-auto rounded-full bg-white dark:bg-white/10 border-2 border-[#00C853]/30 flex items-center justify-center mb-4 shadow-lg">
                         <span className="text-4xl">{item.icon}</span>
                       </div>
-                      <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#007AFF] text-white text-sm font-bold mb-3">
+                      <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#00C853] text-white text-sm font-bold mb-3">
                         {item.step}
                       </div>
                       <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
@@ -406,25 +406,25 @@ export default function GalZipPage() {
         <section className="px-6 py-20 md:py-32">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection>
-              <div className="text-center p-8 md:p-16 rounded-[2.5rem] bg-gradient-to-br from-[#007AFF] via-[#5856D6] to-[#8E44AD] relative overflow-hidden">
+              <div className="text-center p-8 md:p-16 rounded-[2.5rem] bg-gradient-to-br from-[#00C853] via-[#00BFA5] to-[#00ACC1] relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
                 <div className="relative z-10">
                   <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Start Saving Space Today</h2>
-                  <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-xl mx-auto">
+                  <p className="text-lg md:text-xl text-green-100 mb-8 max-w-xl mx-auto">
                     Join thousands of users who have already freed up gigabytes of storage on their iPhones.
                   </p>
                   <a
                     href="https://apps.apple.com/app/galzip"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 h-14 px-8 rounded-full bg-white text-[#007AFF] font-semibold text-lg hover:bg-blue-50 transition-all hover:scale-105 shadow-xl"
+                    className="inline-flex items-center gap-3 h-14 px-8 rounded-full bg-white text-[#00C853] font-semibold text-lg hover:bg-green-50 transition-all hover:scale-105 shadow-xl"
                   >
                     <svg className="w-6 h-6" viewBox="0 0 384 512" fill="currentColor">
                       <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z" />
                     </svg>
                     Download Free on App Store
                   </a>
-                  <p className="text-blue-200 mt-4 text-sm">Free Download • No Credit Card Required</p>
+                  <p className="text-green-200 mt-4 text-sm">Free Download • No Credit Card Required</p>
                 </div>
               </div>
             </AnimatedSection>
@@ -440,7 +440,7 @@ export default function GalZipPage() {
             href="https://apps.apple.com/app/galzip"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-[#007AFF] text-white font-semibold text-lg shadow-lg shadow-blue-500/30"
+            className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white font-semibold text-lg shadow-lg shadow-green-500/30"
           >
             <svg className="w-5 h-5" viewBox="0 0 384 512" fill="currentColor">
               <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z" />
