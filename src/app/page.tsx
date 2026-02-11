@@ -37,7 +37,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
             {/* App Card 1: FinTools */}
-            <a href="/apps/fintools" className="group block h-full">
+            <a href="/fintools" className="group block h-full">
               <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 shadow-2xl hover:shadow-indigo-500/10 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity group-hover:opacity-75"></div>
 
