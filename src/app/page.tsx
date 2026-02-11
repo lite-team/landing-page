@@ -68,14 +68,35 @@ export default function Home() {
               </div>
             </a>
 
-            {/* Coming Soon Card */}
-            <div className="h-full bg-white/5 border border-white/5 rounded-3xl p-8 opacity-60 flex flex-col justify-center items-center text-center">
-              <div className="w-16 h-16 rounded-full bg-white/5 mb-4 flex items-center justify-center">
-                <span className="text-2xl">✨</span>
+            {/* App Card 2: GalZip */}
+            <a href="/galzip" className="group block h-full">
+              <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 shadow-2xl hover:shadow-blue-500/10 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity group-hover:opacity-75"></div>
+
+                <div className="flex items-start justify-between mb-8 relative z-10">
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                    <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                  </div>
+                  <div className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-medium">
+                    Photos
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-300 transition-colors">GalZip</h3>
+                <p className="text-gray-400 leading-relaxed">
+                  Compress photos and videos on your iPhone without losing quality. Free up space, keep your memories.
+                </p>
+
+                <div className="mt-8 flex items-center text-sm font-medium text-white/70 group-hover:text-white transition-colors">
+                  <span>Explore App</span>
+                  <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-2">More coming soon</h3>
-              <p className="text-sm text-gray-500">We are cooking something special.</p>
-            </div>
+            </a>
           </div>
         </div>
 

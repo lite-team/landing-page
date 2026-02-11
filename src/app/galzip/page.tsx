@@ -1,0 +1,458 @@
+"use client"
+
+import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
+
+// FAQ data
+const faqData = [
+  {
+    question: "Is my data safe?",
+    answer: "Absolutely! All compression happens locally on your device. Your photos never leave your iPhone—no uploads, no cloud storage, no third-party access. Your privacy is our priority."
+  },
+  {
+    question: "How much space can I save?",
+    answer: "You can save up to 99% of your photo storage. Results vary depending on your photos, but most users free up several gigabytes of space."
+  },
+  {
+    question: "Does this reduce photo quality?",
+    answer: "GalZip uses smart compression that automatically picks the optimal quality level. Your photos will look virtually identical while taking up significantly less space."
+  },
+  {
+    question: "Can I restore original files?",
+    answer: "Yes! You can choose to keep your original photos after compression. If you decide to delete originals, make sure you've backed them up first."
+  },
+  {
+    question: "What formats are supported?",
+    answer: "GalZip supports all common photo formats including JPEG, and HEIC. Video compression supports MP4 and MOV files."
+  }
+];
+
+// Animated Section Component
+function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), delay);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [delay]);
+
+  return (
+    <div
+      ref={sectionRef}
+      className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+// FAQ Accordion Item
+function FAQItem({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) {
+  return (
+    <div className="border-b border-white/10">
+      <button
+        onClick={onClick}
+        className="w-full py-6 flex items-center justify-between text-left group"
+      >
+        <span className="text-lg font-medium text-white group-hover:text-blue-400 transition-colors">{question}</span>
+        <svg
+          className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-48 pb-6' : 'max-h-0'}`}>
+        <p className="text-gray-400 leading-relaxed">{answer}</p>
+      </div>
+    </div>
+  );
+}
+
+export default function GalZipPage() {
+  const [scrollY, setScrollY] = useState(0);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const showSticky = scrollY > 600;
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white selection:bg-blue-500/30 overflow-x-hidden">
+
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-blue-500/10 rounded-full blur-[120px] opacity-40"></div>
+        <div className="absolute top-[30%] right-[-15%] w-[40vw] h-[40vw] bg-purple-500/10 rounded-full blur-[120px] opacity-30"></div>
+        <div className="absolute bottom-[-10%] left-[30%] w-[35vw] h-[35vw] bg-green-500/10 rounded-full blur-[120px] opacity-20"></div>
+      </div>
+
+      {/* Sticky Header */}
+      <div className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 transform ${showSticky ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
+        <div className="bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-white/5 px-6 py-4">
+          <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src="/icons/galzip.png" alt="GalZip" className="w-8 h-8 rounded-xl" />
+              <span className="font-bold">GalZip</span>
+            </div>
+            <a
+              href="https://apps.apple.com/app/galzip"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#007AFF] text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-[#0066DD] transition-colors shadow-lg shadow-blue-500/25"
+            >
+              Download Free
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="relative z-40 px-6 py-6">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors group">
+            <svg className="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-sm font-medium">Back to Home</span>
+          </Link>
+          <div className="flex items-center gap-3">
+            <img src="/icons/galzip.png" alt="GalZip" className="w-10 h-10 rounded-2xl shadow-lg" />
+            <span className="font-bold text-lg">GalZip</span>
+          </div>
+          <div className="w-24"></div>
+        </div>
+      </nav>
+
+      <main className="relative z-10">
+
+        {/* Hero Section */}
+        <section className="px-6 pt-10 pb-20 md:pt-16 md:pb-32">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection>
+              <div className="text-center max-w-3xl mx-auto">
+                {/* App Icon */}
+                <div className="mb-8 flex justify-center">
+                  <img src="/icons/galzip.png" alt="GalZip" className="w-28 h-28 md:w-36 md:h-36 rounded-[2rem] shadow-2xl shadow-purple-500/25" />
+                </div>
+
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
+                  Free Up Space,<br />Keep Your Memories
+                </h1>
+                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                  Compress photos and videos up to <span className="text-gray-600 dark:text-white font-semibold">99%</span> on your iPhone without losing quality. <span className="text-gray-600 dark:text-white font-semibold">Simple, fast, and private.</span>
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <a
+                    href="https://apps.apple.com/app/galzip"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-14 px-8 rounded-full bg-[#007AFF] text-white font-semibold text-lg flex items-center gap-3 transition-all hover:bg-[#0066DD] hover:scale-105 shadow-xl shadow-blue-500/30"
+                  >
+                    <svg className="w-6 h-6" viewBox="0 0 384 512" fill="currentColor">
+                      <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z" />
+                    </svg>
+                    Download on App Store
+                  </a>
+                  <a
+                    href="#how-it-works"
+                    className="h-14 px-8 rounded-full bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white font-semibold text-lg flex items-center gap-2 transition-all hover:bg-gray-200 dark:hover:bg-white/20"
+                  >
+                    See How It Works
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </a>
+                </div>
+
+                {/* Before/After Visual */}
+                <div className="mt-16 flex items-center justify-center gap-4 md:gap-8">
+                  <div className="text-center">
+                    <div className="w-24 h-32 md:w-32 md:h-40 rounded-2xl bg-red-500/10 border border-red-500/20 flex flex-col items-center justify-end pb-3 mb-2 relative overflow-hidden">
+                      {/* Background image */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 opacity-60"></div>
+                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80')] bg-cover bg-center"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                      <div className="relative z-10 flex items-baseline">
+                        <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">50</span>
+                        <span className="text-sm text-white/80 ml-1">MB</span>
+                      </div>
+                    </div>
+                    <span className="text-sm text-gray-500">Before</span>
+                  </div>
+                  <div className="flex items-center">
+                    <svg className="w-8 h-8 text-[#007AFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-24 h-32 md:w-32 md:h-40 rounded-2xl bg-green-500/10 border border-green-500/20 flex flex-col items-center justify-end pb-3 mb-2 relative overflow-hidden">
+                      {/* Background image */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 opacity-60"></div>
+                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80')] bg-cover bg-center"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                      <div className="relative z-10 flex items-baseline">
+                        <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">15</span>
+                        <span className="text-sm text-white/80 ml-1">MB</span>
+                      </div>
+                      {/* Checkmark badge */}
+                      <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#27AE60] flex items-center justify-center shadow-lg">
+                        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    </div>
+                    <span className="text-sm text-gray-500">After</span>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        {/* Problem Statement Section */}
+        <section className="px-6 py-20 md:py-32 bg-gray-50 dark:bg-white/[0.02]">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Running Out of Storage?</h2>
+                <p className="text-lg text-gray-600 dark:text-gray-400">We understand the struggle. Here's what you're dealing with</p>
+              </div>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { icon: "📱", title: "Phone storage always full", color: "from-blue-500/20 to-blue-600/20" },
+                { icon: "📸", title: "Can't take new photos", color: "from-purple-500/20 to-purple-600/20" },
+                { icon: "☁️", title: "Expensive cloud subscriptions", color: "from-pink-500/20 to-pink-600/20" },
+                { icon: "⏰", title: "Hours managing photos", color: "from-orange-500/20 to-orange-600/20" }
+              ].map((item, idx) => (
+                <AnimatedSection key={idx} delay={idx * 100} className="h-full">
+                  <div className={`h-full p-6 rounded-3xl bg-gradient-to-br ${item.color} border border-white/10 backdrop-blur-sm text-center hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center`}>
+                    <div className="text-4xl mb-4">{item.icon}</div>
+                    <p className="font-medium text-gray-800 dark:text-white">{item.title}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Key Features Section */}
+        <section className="px-6 py-20 md:py-32">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Powerful Features</h2>
+                <p className="text-lg text-gray-600 dark:text-gray-400">Everything you need to manage your photo library</p>
+              </div>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Feature 1: Powerful Compression */}
+              <AnimatedSection delay={0} className="h-full">
+                <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#007AFF]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#007AFF] to-[#5856D6] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Compress Without Quality Loss</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed flex-grow">
+                    Smart quality is picked automatically for the best results. Batch compress hundreds of photos in seconds. Keep or delete originals—you decide.
+                  </p>
+                  <div className="mt-6 h-2 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full w-3/4 bg-gradient-to-r from-[#007AFF] to-[#27AE60] rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+              </AnimatedSection>
+
+              {/* Feature 2: Privacy First */}
+              <AnimatedSection delay={100} className="h-full">
+                <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#27AE60]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#27AE60] to-[#2ECC71] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Your Photos Stay Private</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed flex-grow">
+                    Everything happens on your device. No uploads, no cloud, no sensitive tracking. Your memories are yours alone.
+                  </p>
+                  <div className="mt-6 flex items-center gap-2">
+                    <div className="px-3 py-1 rounded-full bg-[#27AE60]/10 border border-[#27AE60]/30 text-[#27AE60] text-sm font-medium flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      100% Local
+                    </div>
+                  </div>
+                </div>
+              </AnimatedSection>
+
+              {/* Feature 3: Beautiful Interface */}
+              <AnimatedSection delay={200} className="h-full">
+                <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#8E44AD]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#8E44AD] to-[#9B59B6] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Designed for iOS</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed flex-grow">
+                    Native iOS design. Dark mode support. Feels right at home on your iPhone.
+                  </p>
+                  <div className="mt-6 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/20 flex items-center justify-center">
+                      <span className="text-xs">☀️</span>
+                    </div>
+                    <div className="w-8 h-8 rounded-lg bg-gray-900 dark:bg-white/20 border border-gray-700 dark:border-white/30 flex items-center justify-center">
+                      <span className="text-xs">🌙</span>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section id="how-it-works" className="px-6 py-20 md:py-32 bg-gray-50 dark:bg-white/[0.02]">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">How It Works</h2>
+                <p className="text-lg text-gray-600 dark:text-gray-400">Four simple steps to free up your storage</p>
+              </div>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4">
+              {[
+                { step: 1, title: "Select Photos", description: "Choose the photos you want to compress", icon: "👆" },
+                { step: 2, title: "Choose Settings", description: "Let smart quality do its magic", icon: "⚙️" },
+                { step: 3, title: "Compress Instantly", description: "Watch your photos shrink in seconds", icon: "⚡" },
+                { step: 4, title: "Save Space", description: "Enjoy your freed-up storage", icon: "🎉" }
+              ].map((item, idx) => (
+                <AnimatedSection key={idx} delay={idx * 100}>
+                  <div className="relative">
+                    {idx < 3 && (
+                      <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#007AFF]/50 to-transparent -translate-x-1/2 z-0"></div>
+                    )}
+                    <div className="relative z-10 text-center">
+                      <div className="w-24 h-24 mx-auto rounded-full bg-white dark:bg-white/10 border-2 border-[#007AFF]/30 flex items-center justify-center mb-4 shadow-lg">
+                        <span className="text-4xl">{item.icon}</span>
+                      </div>
+                      <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#007AFF] text-white text-sm font-bold mb-3">
+                        {item.step}
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="px-6 py-20 md:py-32 bg-gray-50 dark:bg-white/[0.02]">
+          <div className="max-w-3xl mx-auto">
+            <AnimatedSection>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+                <p className="text-lg text-gray-600 dark:text-gray-400">Got questions? We've got answers.</p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={100}>
+              <div className="bg-white dark:bg-white/5 rounded-3xl border border-gray-200 dark:border-white/10 p-6 md:p-8 shadow-lg dark:shadow-none">
+                {faqData.map((faq, idx) => (
+                  <FAQItem
+                    key={idx}
+                    question={faq.question}
+                    answer={faq.answer}
+                    isOpen={openFAQ === idx}
+                    onClick={() => setOpenFAQ(openFAQ === idx ? null : idx)}
+                  />
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section className="px-6 py-20 md:py-32">
+          <div className="max-w-4xl mx-auto">
+            <AnimatedSection>
+              <div className="text-center p-8 md:p-16 rounded-[2.5rem] bg-gradient-to-br from-[#007AFF] via-[#5856D6] to-[#8E44AD] relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
+                <div className="relative z-10">
+                  <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Start Saving Space Today</h2>
+                  <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-xl mx-auto">
+                    Join thousands of users who have already freed up gigabytes of storage on their iPhones.
+                  </p>
+                  <a
+                    href="https://apps.apple.com/app/galzip"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 h-14 px-8 rounded-full bg-white text-[#007AFF] font-semibold text-lg hover:bg-blue-50 transition-all hover:scale-105 shadow-xl"
+                  >
+                    <svg className="w-6 h-6" viewBox="0 0 384 512" fill="currentColor">
+                      <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z" />
+                    </svg>
+                    Download Free on App Store
+                  </a>
+                  <p className="text-blue-200 mt-4 text-sm">Free Download • No Credit Card Required</p>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+      </main>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 inset-x-0 z-50 md:hidden">
+        <div className="bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-gray-200 dark:border-white/10 p-4">
+          <a
+            href="https://apps.apple.com/app/galzip"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-[#007AFF] text-white font-semibold text-lg shadow-lg shadow-blue-500/30"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 384 512" fill="currentColor">
+              <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z" />
+            </svg>
+            Download Free
+          </a>
+        </div>
+      </div>
+
+      <div className="pb-20 md:pb-0">
+        <Footer />
+      </div>
+    </div>
+  );
+}
