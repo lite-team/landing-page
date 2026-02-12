@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Footer from '@/components/Footer';
 
 // FAQ data
@@ -86,16 +87,20 @@ function FAQItem({ question, answer, isOpen, onClick }: { question: string, answ
 }
 
 export default function FinToolsPage() {
-  const [scrollY, setScrollY] = useState(0);
+  const [showSticky, setShowSticky] = useState(false);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      const shouldShow = window.scrollY > 600;
+      setShowSticky(prev => {
+        if (prev !== shouldShow) return shouldShow;
+        return prev;
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const showSticky = scrollY > 600;
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white selection:bg-yellow-500/30 overflow-x-hidden">
@@ -153,7 +158,15 @@ export default function FinToolsPage() {
               <div className="text-center max-w-3xl mx-auto">
                 {/* App Icon */}
                 <div className="mb-8 flex justify-center">
-                  <img src="/icons/fintools.png" alt="FinTools" className="w-28 h-28 md:w-36 md:h-36 rounded-[2rem] shadow-2xl shadow-yellow-500/25" />
+                  <div className="relative w-28 h-28 md:w-36 md:h-36">
+                    <Image
+                      src="/icons/fintools.png"
+                      alt="FinTools"
+                      fill
+                      className="rounded-[2rem] shadow-2xl shadow-yellow-500/25 object-cover"
+                      priority
+                    />
+                  </div>
                 </div>
 
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">

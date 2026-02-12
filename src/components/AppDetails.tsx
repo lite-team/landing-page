@@ -1,7 +1,8 @@
 "use client"
 
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import Container from './Container';
 import Footer from './Footer';
 
@@ -41,16 +42,19 @@ export default function AppDetails({
   screenshots,
   stats
 }: AppDetailsProps) {
-  const [scrollY, setScrollY] = useState(0);
-  const [activeScreenshot, setActiveScreenshot] = useState(0);
+  const [showSticky, setShowSticky] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      const shouldShow = window.scrollY > 300;
+      setShowSticky(prev => {
+        if (prev !== shouldShow) return shouldShow;
+        return prev;
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const showSticky = scrollY > 300;
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-indigo-500/30 overflow-x-hidden">
@@ -73,8 +77,8 @@ export default function AppDetails({
           </div>
 
           <div className="flex items-center gap-3 justify-self-center">
-            <div className="w-8 h-8 rounded-lg overflow-hidden bg-gray-800">
-              <img src={icon} alt={name} className="w-full h-full object-cover" />
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-gray-800">
+              <Image src={icon} alt={name} fill className="object-cover" sizes="32px" />
             </div>
             <span className="font-bold text-sm md:text-base hidden sm:block">{name}</span>
           </div>
@@ -106,7 +110,7 @@ export default function AppDetails({
 
             <div className="mb-10 relative group cursor-default">
               <div className="w-32 h-32 md:w-44 md:h-44 bg-gray-900 rounded-[2.5rem] p-1 shadow-2xl border border-white/10 relative overflow-hidden transition-transform duration-700 hover:scale-105 hover:rotate-3">
-                <img src={icon} alt={name} className="w-full h-full object-cover rounded-[2.3rem]" />
+                <Image src={icon} alt={name} fill className="object-cover rounded-[2.3rem]" sizes="(max-width: 768px) 128px, 176px" priority />
                 <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[2.3rem]"></div>
               </div>
             </div>
@@ -162,6 +166,8 @@ export default function AppDetails({
                     src={src}
                     alt={`Screenshot ${idx}`}
                     className="w-[260px] h-auto object-contain rounded-[2rem] shadow-2xl"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               ))}
