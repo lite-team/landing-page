@@ -119,7 +119,7 @@ export default function FinToolsPage() {
               href="https://apps.apple.com/us/app/fintools/id6746293973"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gradient-to-r from-[#eab308] via-[#facc15] to-[#fbbf24] text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all shadow-lg shadow-yellow-500/25"
+              className="hidden md:inline-flex items-center bg-gradient-to-r from-[#eab308] via-[#facc15] to-[#fbbf24] text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all shadow-lg shadow-yellow-500/25"
             >
               Download Free
             </a>

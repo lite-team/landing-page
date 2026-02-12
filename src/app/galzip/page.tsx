@@ -88,6 +88,15 @@ function FAQItem({ question, answer, isOpen, onClick }: { question: string, answ
 export default function GalZipPage() {
   const [scrollY, setScrollY] = useState(0);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scroll to middle on mount
+    if (scrollContainerRef.current) {
+      const { scrollWidth, clientWidth } = scrollContainerRef.current;
+      scrollContainerRef.current.scrollLeft = (scrollWidth - clientWidth) / 2;
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -119,7 +128,7 @@ export default function GalZipPage() {
               href="https://apps.apple.com/app/galzip"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all shadow-lg shadow-green-500/25"
+              className="hidden md:inline-flex items-center bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all shadow-lg shadow-green-500/25"
             >
               Download Free
             </a>
@@ -186,44 +195,75 @@ export default function GalZipPage() {
                   </a>
                 </div>
 
-                {/* Before/After Visual */}
-                <div className="mt-16 flex items-center justify-center gap-4 md:gap-8">
-                  <div className="text-center">
-                    <div className="w-24 h-32 md:w-32 md:h-40 rounded-2xl bg-red-500/10 border border-red-500/20 flex flex-col items-center justify-end pb-3 mb-2 relative overflow-hidden">
-                      {/* Background image */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 opacity-60"></div>
-                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80')] bg-cover bg-center"></div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                      <div className="relative z-10 flex items-baseline">
-                        <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">50</span>
-                        <span className="text-sm text-white/80 ml-1">MB</span>
+                {/* App Screenshots Showcase */}
+                <div className="mt-16 relative">
+                  {/* Gradient fade on edges */}
+                  <div className="absolute left-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+                  <div className="absolute right-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+
+                  <style jsx>{`
+                    @keyframes float {
+                      0%, 100% { transform: translateY(0px); }
+                      50% { transform: translateY(-10px); }
+                    }
+                    @keyframes fadeSlideIn {
+                      from {
+                        opacity: 0;
+                        transform: translateY(30px) scale(0.9);
+                      }
+                      to {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                      }
+                    }
+                    .screenshot-item {
+                      animation: fadeSlideIn 0.6s ease-out forwards;
+                    }
+                    .screenshot-float {
+                      animation: float 3s ease-in-out infinite;
+                    }
+                  `}</style>
+
+                  {/* Screenshots Container */}
+                  <div
+                    ref={scrollContainerRef}
+                    className="flex items-center gap-4 md:gap-6 overflow-x-auto pb-4 pl-16 pr-16 md:pl-20 md:pr-20 scrollbar-hide"
+                    style={{ scrollPaddingLeft: '64px', scrollPaddingRight: '64px' }}
+                  >
+                    {[1, 2, 3, 4].map((num, idx) => (
+                      <div
+                        key={num}
+                        className={`screenshot-item flex-shrink-0 transition-all duration-500 ${idx === 1 ? 'scale-105 md:scale-110' : 'scale-95 md:scale-100 opacity-80 hover:opacity-100'
+                          }`}
+                        style={{
+                          animationDelay: `${idx * 150}ms`,
+                          opacity: 0
+                        }}
+                      >
+                        <div className="relative group screenshot-float" style={{ animationDelay: `${idx * 0.5}s` }}>
+                          {/* Phone frame */}
+                          <div className="relative w-[160px] md:w-[200px] lg:w-[220px] h-[320px] md:h-[400px] lg:h-[440px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-800 dark:border-gray-700 bg-black">
+                            <img
+                              src={`/apps/galzip/Apple iPhone 16 Pro Max Screenshot ${num}.png`}
+                              alt={`GalZip Screenshot ${num}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+
+                          {/* Spotlight effect on hover */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#00C853]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] md:rounded-[2.5rem]"></div>
+
+
+                        </div>
                       </div>
-                    </div>
-                    <span className="text-sm text-gray-500">Before</span>
+                    ))}
                   </div>
-                  <div className="flex items-center">
-                    <svg className="w-8 h-8 text-[#00C853]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-24 h-32 md:w-32 md:h-40 rounded-2xl bg-green-500/10 border border-green-500/20 flex flex-col items-center justify-end pb-3 mb-2 relative overflow-hidden">
-                      {/* Background image */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 opacity-60"></div>
-                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80')] bg-cover bg-center"></div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                      <div className="relative z-10 flex items-baseline">
-                        <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">15</span>
-                        <span className="text-sm text-white/80 ml-1">MB</span>
-                      </div>
-                      {/* Checkmark badge */}
-                      <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#27AE60] flex items-center justify-center shadow-lg">
-                        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                    </div>
-                    <span className="text-sm text-gray-500">After</span>
+
+                  {/* Scroll indicator for mobile */}
+                  <div className="flex justify-center gap-1.5 mt-6 md:hidden">
+                    {[1, 2, 3, 4].map((num) => (
+                      <div key={num} className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                    ))}
                   </div>
                 </div>
               </div>
