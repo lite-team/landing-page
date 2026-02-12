@@ -208,13 +208,15 @@ export default function GalZipPage() {
                   </a>
                 </div>
 
-                {/* App Screenshots Showcase */}
-                <div className="mt-16 relative">
-                  {/* Gradient fade on edges */}
-                  <div className="absolute left-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
-                  <div className="absolute right-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+              </div>
 
-                  <style jsx>{`
+              {/* App Screenshots Showcase */}
+              <div className="mt-16 relative w-full mx-auto">
+                {/* Gradient fade on edges */}
+                <div className="absolute left-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+
+                <style jsx>{`
                     @keyframes float {
                       0%, 100% { transform: translateY(0px); }
                       50% { transform: translateY(-10px); }
@@ -237,50 +239,50 @@ export default function GalZipPage() {
                     }
                   `}</style>
 
-                  {/* Screenshots Container */}
-                  <div
-                    ref={scrollContainerRef}
-                    className="flex items-center gap-4 md:gap-6 overflow-x-auto pb-4 pl-16 pr-16 md:pl-20 md:pr-20 scrollbar-hide"
-                    style={{ scrollPaddingLeft: '64px', scrollPaddingRight: '64px' }}
-                  >
-                    {[1, 2, 3, 4].map((num, idx) => (
-                      <div
-                        key={num}
-                        className={`screenshot-item flex-shrink-0 transition-all duration-500 ${idx === 1 ? 'scale-105 md:scale-110' : 'scale-95 md:scale-100 opacity-80 hover:opacity-100'
-                          }`}
-                        style={{
-                          animationDelay: `${idx * 150}ms`,
-                          opacity: 0
-                        }}
-                      >
-                        <div className="relative group screenshot-float" style={{ animationDelay: `${idx * 0.5}s` }}>
-                          {/* Phone frame */}
-                          <div className="relative w-[160px] md:w-[200px] lg:w-[220px] h-[320px] md:h-[400px] lg:h-[440px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-800 dark:border-gray-700 bg-black">
-                            <Image
-                              src={`/apps/galzip/Apple iPhone 16 Pro Max Screenshot ${num}.png`}
-                              alt={`GalZip Screenshot ${num}`}
-                              fill
-                              sizes="(max-width: 768px) 160px, (max-width: 1024px) 200px, 220px"
-                              className="object-cover"
-                              loading="lazy"
-                            />
-                          </div>
-
-                          {/* Spotlight effect on hover */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#00C853]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] md:rounded-[2.5rem]"></div>
+                {/* Screenshots Container */}
+                <div
+                  ref={scrollContainerRef}
+                  className="flex items-center gap-6 md:gap-8 overflow-x-auto pb-4 pl-16 pr-16 md:pl-20 md:pr-20 scrollbar-hide"
+                  style={{ scrollPaddingLeft: '64px', scrollPaddingRight: '64px' }}
+                >
+                  {[1, 2, 3, 4].map((num, idx) => (
+                    <div
+                      key={num}
+                      className={`screenshot-item flex-shrink-0 transition-all duration-500 ${idx === 1 ? 'scale-105 md:scale-110' : 'scale-95 md:scale-100 opacity-80 hover:opacity-100'
+                        }`}
+                      style={{
+                        animationDelay: `${idx * 150}ms`,
+                        opacity: 0
+                      }}
+                    >
+                      <div className="relative group screenshot-float" style={{ animationDelay: `${idx * 0.5}s` }}>
+                        {/* Phone frame */}
+                        <div className="relative w-[200px] md:w-[260px] lg:w-[280px] h-[400px] md:h-[520px] lg:h-[560px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-800 dark:border-gray-700 bg-black">
+                          <Image
+                            src={`/apps/galzip/Apple iPhone 16 Pro Max Screenshot ${num}.png`}
+                            alt={`GalZip Screenshot ${num}`}
+                            fill
+                            sizes="(max-width: 768px) 200px, (max-width: 1024px) 260px, 280px"
+                            className="object-cover"
+                            loading="lazy"
+                          />
                         </div>
-                      </div>
-                    ))}
-                  </div>
 
-                  {/* Scroll indicator for mobile */}
-                  <div className="flex justify-center gap-1.5 mt-6 md:hidden">
-                    {[1, 2, 3, 4].map((num) => (
-                      <div key={num} className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600"></div>
-                    ))}
-                  </div>
+                        {/* Spotlight effect on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#00C853]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] md:rounded-[2.5rem]"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Scroll indicator for mobile */}
+                <div className="flex justify-center gap-1.5 mt-6 md:hidden">
+                  {[1, 2, 3, 4].map((num) => (
+                    <div key={num} className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                  ))}
                 </div>
               </div>
+
             </AnimatedSection>
           </div>
         </section>
