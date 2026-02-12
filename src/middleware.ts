@@ -6,18 +6,24 @@ export function middleware(request: NextRequest) {
   
   // Extract subdomain from hostname
   const subdomain = hostname.split('.')[0];
- 
-    // If already on the app path, allow it
-    if (request.nextUrl.pathname.startsWith(`/${subdomain}`)) {
-      return NextResponse.next();
-    }
-    
-    // If on root, rewrite to app page
-    if (request.nextUrl.pathname === '/' || request.nextUrl.pathname === '') {
-      const url = request.nextUrl.clone();
-      url.pathname = `/${subdomain}`;
-      return NextResponse.rewrite(url);
-    }
+  
+  // Skip if no subdomain or if it's www or the main domain
+  if (!subdomain || subdomain === 'www' || subdomain === 'liteteam' || !hostname.includes('.')) {
+    return NextResponse.next();
+  }
+  
+  // Accept any subdomain and try to route to it
+  // If already on the app path, allow it
+  if (request.nextUrl.pathname.startsWith(`/${subdomain}`)) {
+    return NextResponse.next();
+  }
+  
+  // If on root, rewrite to app page
+  if (request.nextUrl.pathname === '/' || request.nextUrl.pathname === '') {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${subdomain}`;
+    return NextResponse.rewrite(url);
+  }
   
   return NextResponse.next();
 }
