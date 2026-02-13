@@ -89,6 +89,29 @@ function FAQItem({ question, answer, isOpen, onClick }: { question: string, answ
 export default function FinToolsPage() {
   const [showSticky, setShowSticky] = useState(false);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [isSubdomain, setIsSubdomain] = useState(false);
+  const [mainDomain, setMainDomain] = useState('');
+
+  useEffect(() => {
+    // Check if we're on a subdomain
+    const hostname = window.location.hostname;
+    const port = window.location.port;
+
+    var hostnameParts = hostname.split('.');
+      // For localhost with subdomain (e.g., fintools.localhost:3001)
+      if (hostnameParts.length >= 2 && hostnameParts[hostnameParts.length - 1] === 'localhost') {
+        setIsSubdomain(true);
+        setMainDomain(`http://localhost${port ? ':' + port : ''}`);
+    } else if (hostnameParts.length >= 3) {
+      // We're on a production subdomain (e.g., fintools.liteteam.app)
+      const domain = `https://${hostnameParts.slice(-2).join('.')}`;
+      setIsSubdomain(true);
+      setMainDomain(domain);
+    } else {
+      setMainDomain("/")
+    }
+
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,12 +158,12 @@ export default function FinToolsPage() {
       {/* Navigation */}
       <nav className="relative z-40 px-6 py-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors group">
-            <svg className="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span className="text-sm font-medium">Back to Home</span>
-          </Link>
+            <Link href={mainDomain} className="flex items-center gap-2 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors group">
+              <svg className="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="text-sm font-medium">Back to Home</span>
+            </Link>
           <div className="flex items-center gap-3">
             <img src="/icons/fintools.png" alt="FinTools" className="w-10 h-10 rounded-2xl shadow-lg" />
             <span className="font-bold text-lg">FinTools</span>
