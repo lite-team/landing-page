@@ -75,7 +75,7 @@ export default function Home() {
 
                 <div className="flex items-start justify-between mb-8 relative z-10">
                   <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300">
-                    <img src="/icons/galzip.png" alt="GalZip" className="w-full h-full object-cover" />
+                    <img src="/icons/galzip.jpg" alt="GalZip" className="w-full h-full object-cover" />
                   </div>
                   <div className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-medium">
                     Media
