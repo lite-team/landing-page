@@ -1,0 +1,72 @@
+/* GalZip Screenshot Animations - Optimized for Performance */
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.screenshot-item {
+  animation: fadeSlideIn 0.6s ease-out forwards;
+}
+
+.screenshot-item:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.screenshot-item:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.screenshot-item:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.screenshot-item:nth-child(4) {
+  animation-delay: 450ms;
+}
+
+/* Only enable float animation on desktop to reduce mobile load */
+@media (min-width: 768px) {
+  .screenshot-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .screenshot-float:nth-child(1) {
+    animation-delay: 0s;
+  }
+  
+  .screenshot-float:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  
+  .screenshot-float:nth-child(3) {
+    animation-delay: 1s;
+  }
+  
+  .screenshot-float:nth-child(4) {
+    animation-delay: 1.5s;
+  }
+}
+
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .screenshot-item,
+  .screenshot-float {
+    animation: none;
+  }
+}

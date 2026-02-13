@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
+import './galzip.css';
 
 // FAQ data
 const faqData = [
@@ -29,8 +30,8 @@ const faqData = [
   }
 ];
 
-// Animated Section Component
-function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
+// Animated Section Component - Memoized for performance
+const AnimatedSection = memo(function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +42,7 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
           setTimeout(() => setIsVisible(true), delay);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '50px' }
     );
 
     if (sectionRef.current) {
@@ -59,7 +60,7 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
       {children}
     </div>
   );
-}
+});
 
 // FAQ Accordion Item
 function FAQItem({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) {
@@ -122,12 +123,19 @@ export default function GalZipPage() {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const shouldShow = window.scrollY > 600;
-      setShowSticky(prev => {
-        if (prev !== shouldShow) return shouldShow;
-        return prev;
-      });
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const shouldShow = window.scrollY > 600;
+          setShowSticky(prev => {
+            if (prev !== shouldShow) return shouldShow;
+            return prev;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -138,14 +146,14 @@ export default function GalZipPage() {
 
       {/* Dynamic Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-blue-500/10 rounded-full blur-[120px] opacity-40"></div>
-        <div className="absolute top-[30%] right-[-15%] w-[40vw] h-[40vw] bg-purple-500/10 rounded-full blur-[120px] opacity-30"></div>
-        <div className="absolute bottom-[-10%] left-[30%] w-[35vw] h-[35vw] bg-green-500/10 rounded-full blur-[120px] opacity-20"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-blue-500/10 rounded-full blur-[60px] opacity-40"></div>
+        <div className="absolute top-[30%] right-[-15%] w-[40vw] h-[40vw] bg-purple-500/10 rounded-full blur-[60px] opacity-30"></div>
+        <div className="absolute bottom-[-10%] left-[30%] w-[35vw] h-[35vw] bg-green-500/10 rounded-full blur-[60px] opacity-20"></div>
       </div>
 
       {/* Sticky Header */}
       <div className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 transform ${showSticky ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-        <div className="bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-white/5 px-6 py-4">
+        <div className="bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-gray-200/50 dark:border-white/5 px-6 py-4">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <img src="/icons/galzip.png" alt="GalZip" className="w-8 h-8 rounded-xl" />
@@ -238,28 +246,7 @@ export default function GalZipPage() {
                 <div className="absolute left-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
                 <div className="absolute right-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
 
-                <style jsx>{`
-                    @keyframes float {
-                      0%, 100% { transform: translateY(0px); }
-                      50% { transform: translateY(-10px); }
-                    }
-                    @keyframes fadeSlideIn {
-                      from {
-                        opacity: 0;
-                        transform: translateY(30px) scale(0.9);
-                      }
-                      to {
-                        opacity: 1;
-                        transform: translateY(0) scale(1);
-                      }
-                    }
-                    .screenshot-item {
-                      animation: fadeSlideIn 0.6s ease-out forwards;
-                    }
-                    .screenshot-float {
-                      animation: float 3s ease-in-out infinite;
-                    }
-                  `}</style>
+
 
                 {/* Screenshots Container */}
                 <div
@@ -272,12 +259,8 @@ export default function GalZipPage() {
                       key={num}
                       className={`screenshot-item flex-shrink-0 transition-all duration-500 ${idx === 1 ? 'scale-105 md:scale-110' : 'scale-95 md:scale-100 opacity-80 hover:opacity-100'
                         }`}
-                      style={{
-                        animationDelay: `${idx * 150}ms`,
-                        opacity: 0
-                      }}
                     >
-                      <div className="relative group screenshot-float" style={{ animationDelay: `${idx * 0.5}s` }}>
+                      <div className="relative group screenshot-float">
                         {/* Phone frame */}
                         <div className="relative w-[200px] md:w-[260px] lg:w-[280px] h-[400px] md:h-[520px] lg:h-[560px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-800 dark:border-gray-700 bg-black">
                           <Image
@@ -513,7 +496,7 @@ export default function GalZipPage() {
 
       {/* Mobile Sticky CTA */}
       <div className="fixed bottom-0 inset-x-0 z-50 md:hidden">
-        <div className="bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-gray-200 dark:border-white/10 p-4">
+        <div className="bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-sm border-t border-gray-200 dark:border-white/10 p-4">
           <a
             href="https://apps.apple.com/app/galzip"
             target="_blank"

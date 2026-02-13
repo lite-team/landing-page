@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
@@ -29,8 +29,8 @@ const faqData = [
   }
 ];
 
-// Animated Section Component
-function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
+// Animated Section Component - Memoized for performance
+const AnimatedSection = memo(function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +41,7 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
           setTimeout(() => setIsVisible(true), delay);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '50px' }
     );
 
     if (sectionRef.current) {
@@ -59,7 +59,7 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
       {children}
     </div>
   );
-}
+});
 
 // FAQ Accordion Item
 function FAQItem({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) {
@@ -114,12 +114,19 @@ export default function FinToolsPage() {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const shouldShow = window.scrollY > 600;
-      setShowSticky(prev => {
-        if (prev !== shouldShow) return shouldShow;
-        return prev;
-      });
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const shouldShow = window.scrollY > 600;
+          setShowSticky(prev => {
+            if (prev !== shouldShow) return shouldShow;
+            return prev;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -130,14 +137,14 @@ export default function FinToolsPage() {
 
       {/* Dynamic Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-yellow-500/10 rounded-full blur-[120px] opacity-40"></div>
-        <div className="absolute top-[30%] right-[-15%] w-[40vw] h-[40vw] bg-amber-500/10 rounded-full blur-[120px] opacity-30"></div>
-        <div className="absolute bottom-[-10%] left-[30%] w-[35vw] h-[35vw] bg-yellow-500/10 rounded-full blur-[120px] opacity-20"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-yellow-500/10 rounded-full blur-[60px] opacity-40"></div>
+        <div className="absolute top-[30%] right-[-15%] w-[40vw] h-[40vw] bg-amber-500/10 rounded-full blur-[60px] opacity-30"></div>
+        <div className="absolute bottom-[-10%] left-[30%] w-[35vw] h-[35vw] bg-yellow-500/10 rounded-full blur-[60px] opacity-20"></div>
       </div>
 
       {/* Sticky Header */}
       <div className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 transform ${showSticky ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-        <div className="bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-white/5 px-6 py-4">
+        <div className="bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-gray-200/50 dark:border-white/5 px-6 py-4">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <img src="/icons/fintools.png" alt="FinTools" className="w-8 h-8 rounded-xl" />
@@ -409,7 +416,7 @@ export default function FinToolsPage() {
 
       {/* Mobile Sticky CTA */}
       <div className="fixed bottom-0 inset-x-0 z-50 md:hidden">
-        <div className="bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-gray-200 dark:border-white/10 p-4">
+        <div className="bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-sm border-t border-gray-200 dark:border-white/10 p-4">
           <a
             href="https://apps.apple.com/us/app/fintools/id6746293973"
             target="_blank"
