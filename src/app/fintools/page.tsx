@@ -3,7 +3,11 @@
 import { useState, useEffect, useRef, memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Footer from '@/components/Footer';
+import dynamic from 'next/dynamic';
+
+const Footer = dynamic(() => import('@/components/Footer'), {
+  loading: () => <div className="h-32" />
+});
 
 // FAQ data
 const faqData = [
@@ -41,7 +45,7 @@ const AnimatedSection = memo(function AnimatedSection({ children, className = ""
           setTimeout(() => setIsVisible(true), delay);
         }
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { threshold: 0.05, rootMargin: '100px' }
     );
 
     if (sectionRef.current) {
@@ -54,7 +58,7 @@ const AnimatedSection = memo(function AnimatedSection({ children, className = ""
   return (
     <div
       ref={sectionRef}
-      className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+      className={`transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
     >
       {children}
     </div>
@@ -265,7 +269,7 @@ export default function FinToolsPage() {
                 { icon: "💸", title: "Hidden loan costs", color: "from-yellow-500/20 to-yellow-600/20" },
                 { icon: "⏰", title: "Time-consuming planning", color: "from-pink-500/20 to-pink-600/20" }
               ].map((item, idx) => (
-                <AnimatedSection key={idx} delay={idx * 100} className="h-full">
+                <AnimatedSection key={idx} delay={idx * 50} className="h-full">
                   <div className={`h-full p-6 rounded-3xl bg-gradient-to-br ${item.color} border border-white/10 backdrop-blur-sm text-center hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center`}>
                     <div className="text-4xl mb-4">{item.icon}</div>
                     <p className="font-medium text-gray-800 dark:text-white">{item.title}</p>
@@ -288,7 +292,7 @@ export default function FinToolsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Feature 1: Privacy First */}
-              <AnimatedSection delay={0} className="h-full">
+              <AnimatedSection className="h-full">
                 <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#eab308]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#eab308] to-[#facc15] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -311,7 +315,7 @@ export default function FinToolsPage() {
               </AnimatedSection>
 
               {/* Feature 2: Intuitive Interface */}
-              <AnimatedSection delay={100} className="h-full">
+              <AnimatedSection className="h-full">
                 <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#facc15]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#facc15] to-[#fbbf24] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -329,7 +333,7 @@ export default function FinToolsPage() {
               </AnimatedSection>
 
               {/* Feature 3: iCloud Sync */}
-              <AnimatedSection delay={200} className="h-full">
+              <AnimatedSection className="h-full">
                 <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#fbbf24]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#fbbf24] to-[#f59e0b] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -367,7 +371,7 @@ export default function FinToolsPage() {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={100}>
+            <AnimatedSection>
               <div className="bg-white dark:bg-white/5 rounded-3xl border border-gray-200 dark:border-white/10 p-6 md:p-8 shadow-lg dark:shadow-none">
                 {faqData.map((faq, idx) => (
                   <FAQItem

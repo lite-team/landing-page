@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins: [
+    '192.168.1.254:3000',
+    '192.168.1.254',
+  ],
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

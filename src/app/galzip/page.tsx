@@ -3,8 +3,12 @@
 import { useState, useEffect, useRef, memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Footer from '@/components/Footer';
+import dynamic from 'next/dynamic';
 import './galzip.css';
+
+const Footer = dynamic(() => import('@/components/Footer'), {
+  loading: () => <div className="h-32" />
+});
 
 // FAQ data
 const faqData = [
@@ -42,7 +46,7 @@ const AnimatedSection = memo(function AnimatedSection({ children, className = ""
           setTimeout(() => setIsVisible(true), delay);
         }
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { threshold: 0.05, rootMargin: '100px' }
     );
 
     if (sectionRef.current) {
@@ -55,7 +59,7 @@ const AnimatedSection = memo(function AnimatedSection({ children, className = ""
   return (
     <div
       ref={sectionRef}
-      className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
+      className={`transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}
     >
       {children}
     </div>
@@ -115,10 +119,14 @@ export default function GalZipPage() {
   }, []);
 
   useEffect(() => {
-    // Scroll to middle on mount
+    // Scroll to middle on mount with RAF for better performance
     if (scrollContainerRef.current) {
-      const { scrollWidth, clientWidth } = scrollContainerRef.current;
-      scrollContainerRef.current.scrollLeft = (scrollWidth - clientWidth) / 2;
+      requestAnimationFrame(() => {
+        if (scrollContainerRef.current) {
+          const { scrollWidth, clientWidth } = scrollContainerRef.current;
+          scrollContainerRef.current.scrollLeft = (scrollWidth - clientWidth) / 2;
+        }
+      });
     }
   }, []);
 
@@ -269,12 +277,10 @@ export default function GalZipPage() {
                             fill
                             sizes="(max-width: 768px) 200px, (max-width: 1024px) 260px, 280px"
                             className="object-cover"
-                            loading="lazy"
+                            loading={idx < 2 ? "eager" : "lazy"}
+                            priority={idx === 0}
                           />
                         </div>
-
-                        {/* Spotlight effect on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#00C853]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] md:rounded-[2.5rem]"></div>
                       </div>
                     </div>
                   ))}
@@ -309,7 +315,7 @@ export default function GalZipPage() {
                 { icon: "☁️", title: "Expensive cloud subscriptions", color: "from-pink-500/20 to-pink-600/20" },
                 { icon: "⏰", title: "Hours managing photos", color: "from-orange-500/20 to-orange-600/20" }
               ].map((item, idx) => (
-                <AnimatedSection key={idx} delay={idx * 100} className="h-full">
+                <AnimatedSection key={idx} delay={idx * 50} className="h-full">
                   <div className={`h-full p-6 rounded-3xl bg-gradient-to-br ${item.color} border border-white/10 backdrop-blur-sm text-center hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center`}>
                     <div className="text-4xl mb-4">{item.icon}</div>
                     <p className="font-medium text-gray-800 dark:text-white">{item.title}</p>
@@ -332,7 +338,7 @@ export default function GalZipPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Feature 1: Powerful Compression */}
-              <AnimatedSection delay={0} className="h-full">
+              <AnimatedSection className="h-full">
                 <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#007AFF]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#007AFF] to-[#5856D6] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -350,7 +356,7 @@ export default function GalZipPage() {
               </AnimatedSection>
 
               {/* Feature 2: Privacy First */}
-              <AnimatedSection delay={100} className="h-full">
+              <AnimatedSection className="h-full">
                 <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#27AE60]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#27AE60] to-[#2ECC71] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -373,7 +379,7 @@ export default function GalZipPage() {
               </AnimatedSection>
 
               {/* Feature 3: Beautiful Interface */}
-              <AnimatedSection delay={200} className="h-full">
+              <AnimatedSection className="h-full">
                 <div className="group h-full p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-[#8E44AD]/50 transition-all duration-300 hover:-translate-y-2 shadow-lg dark:shadow-none flex flex-col">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#8E44AD] to-[#9B59B6] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -415,7 +421,7 @@ export default function GalZipPage() {
                 { step: 3, title: "Compress Instantly", description: "Watch your photos shrink in seconds", icon: "⚡" },
                 { step: 4, title: "Save Space", description: "Enjoy your freed-up storage", icon: "🎉" }
               ].map((item, idx) => (
-                <AnimatedSection key={idx} delay={idx * 100}>
+                <AnimatedSection key={idx} delay={idx * 50}>
                   <div className="relative">
                     {idx < 3 && (
                       <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-[#00C853]/50 to-transparent -translate-x-1/2 z-0"></div>
@@ -447,7 +453,7 @@ export default function GalZipPage() {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={100}>
+            <AnimatedSection>
               <div className="bg-white dark:bg-white/5 rounded-3xl border border-gray-200 dark:border-white/10 p-6 md:p-8 shadow-lg dark:shadow-none">
                 {faqData.map((faq, idx) => (
                   <FAQItem

@@ -4,6 +4,17 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   
+  // Skip if accessing via IP address (contains only numbers and dots)
+  const isIPAddress = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?$/.test(hostname);
+  if (isIPAddress) {
+    return NextResponse.next();
+  }
+  
+  // Skip if localhost
+  if (hostname.startsWith('localhost')) {
+    return NextResponse.next();
+  }
+  
   // Extract subdomain from hostname
   const subdomain = hostname.split('.')[0];
   
