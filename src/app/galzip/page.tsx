@@ -164,7 +164,7 @@ export default function GalZipPage() {
         <div className="bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-gray-200/50 dark:border-white/5 px-6 py-4">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src="/icons/galzip.jpg" alt="GalZip" className="w-8 h-8 rounded-xl" />
+              <img src="/icons/icon-galzip.jpg" alt="GalZip" className="w-8 h-8 rounded-xl" />
               <span className="font-bold">GalZip</span>
             </div>
             <a
@@ -189,7 +189,7 @@ export default function GalZipPage() {
               <span className="text-sm font-medium">Back to Home</span>
             </Link>
           <div className="flex items-center gap-3">
-            <img src="/icons/galzip.jpg" alt="GalZip" className="w-10 h-10 rounded-2xl shadow-lg" />
+            <img src="/icons/icon-galzip.jpg" alt="GalZip" className="w-10 h-10 rounded-2xl shadow-lg" />
             <span className="font-bold text-lg">GalZip</span>
           </div>
           <div className="w-24"></div>
@@ -207,7 +207,7 @@ export default function GalZipPage() {
                 <div className="mb-8 flex justify-center">
                   <div className="relative w-28 h-28 md:w-36 md:h-36">
                     <Image
-                      src="/icons/galzip.jpg"
+                      src="/icons/icon-galzip.jpg"
                       alt="GalZip"
                       fill
                       className="rounded-[2rem] shadow-2xl shadow-purple-500/25 object-cover"
@@ -272,7 +272,7 @@ export default function GalZipPage() {
                         {/* Phone frame */}
                         <div className="relative w-[200px] md:w-[260px] lg:w-[280px] h-[400px] md:h-[520px] lg:h-[560px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-800 dark:border-gray-700 bg-black">
                           <Image
-                            src={`/apps/galzip/galzip-${num}.jpg`}
+                            src={`/apps/galzip/screenshot-galzip-${num}.jpg`}
                             alt={`GalZip Screenshot ${num}`}
                             fill
                             sizes="(max-width: 768px) 200px, (max-width: 1024px) 260px, 280px"
