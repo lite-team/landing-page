@@ -168,7 +168,7 @@ export default function GalZipPage() {
               <span className="font-bold">GalZip</span>
             </div>
             <a
-              href="https://apps.apple.com/app/galzip"
+              href="https://apps.apple.com/app/galzip-compress-photo-video/id6756837895"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:inline-flex items-center bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-all shadow-lg shadow-green-500/25"
@@ -225,7 +225,7 @@ export default function GalZipPage() {
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
-                    href="https://apps.apple.com/app/galzip"
+                    href="https://apps.apple.com/app/galzip-compress-photo-video/id6756837895"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="h-14 px-6 sm:px-8 rounded-full bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white font-semibold text-base sm:text-lg flex items-center gap-2 sm:gap-3 transition-all hover:opacity-90 hover:scale-105 shadow-xl shadow-green-500/30"
@@ -481,7 +481,7 @@ export default function GalZipPage() {
                     Join thousands of users who have already freed up gigabytes of storage on their iPhones.
                   </p>
                   <a
-                    href="https://apps.apple.com/app/galzip"
+                    href="https://apps.apple.com/app/galzip-compress-photo-video/id6756837895"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 sm:gap-3 h-14 px-6 sm:px-8 rounded-full bg-white text-[#00C853] font-semibold text-base sm:text-lg hover:bg-green-600 transition-all hover:scale-105 shadow-xl"
@@ -504,7 +504,7 @@ export default function GalZipPage() {
       <div className="fixed bottom-0 inset-x-0 z-50 md:hidden">
         <div className="bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-sm border-t border-gray-200 dark:border-white/10 p-4">
           <a
-            href="https://apps.apple.com/app/galzip"
+            href="https://apps.apple.com/app/galzip-compress-photo-video/id6756837895"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-gradient-to-r from-[#00C853] via-[#00BFA5] to-[#00ACC1] text-white font-semibold text-base shadow-lg shadow-green-500/30"
