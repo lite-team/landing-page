@@ -35,29 +35,27 @@ export default function Home() {
             <div className="h-px bg-white/10 flex-1 ml-8"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-            {/* App Card 1: FinTools */}
-            <a href="/fintools" className="group block h-full">
-              <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 shadow-2xl hover:shadow-indigo-500/10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity group-hover:opacity-75"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            {/* App Card 1: FocusTag */}
+            <a href="/focustag" className="group block h-full">
+              <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 shadow-2xl hover:shadow-[#C2652A]/15 relative overflow-hidden flex flex-col justify-between">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#C2652A]/15 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity group-hover:opacity-100"></div>
 
-                <div className="flex items-start justify-between mb-8 relative z-10">
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300">
-                    <img
-                      src="/icons/fintools.png"
-                      alt="FinTools"
-                      className="w-full h-full object-cover"
-                    />
+                <div>
+                  <div className="flex items-start justify-between mb-8 relative z-10">
+                    <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300">
+                      <img src="/icons/focustag.png" alt="FocusTag" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="px-3 py-1 rounded-full bg-[#C2652A]/20 border border-[#C2652A]/30 text-[#FCA37C] text-xs font-medium">
+                      Productivity
+                    </div>
                   </div>
-                  <div className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-medium">
-                    Finance
-                  </div>
+
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-[#FCA37C] transition-colors">FocusTag</h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">
+                    Block distracting apps with Apple Screen Time, pair with ambient soundscapes, and enter deep flow in a single tap.
+                  </p>
                 </div>
-
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-indigo-300 transition-colors">FinTools</h3>
-                <p className="text-gray-400 leading-relaxed">
-                  A comprehensive suite of financial calculators and utilities designed for clarity and precision.
-                </p>
 
                 <div className="mt-8 flex items-center text-sm font-medium text-white/70 group-hover:text-white transition-colors">
                   <span>Explore App</span>
@@ -68,24 +66,60 @@ export default function Home() {
               </div>
             </a>
 
-            {/* App Card 2: GalZip */}
-            <a href="/galzip" className="group block h-full">
-              <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 shadow-2xl hover:shadow-blue-500/10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity group-hover:opacity-75"></div>
+            {/* App Card 2: FinTools */}
+            <a href="/fintools" className="group block h-full">
+              <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 shadow-2xl hover:shadow-indigo-500/10 relative overflow-hidden flex flex-col justify-between">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity group-hover:opacity-75"></div>
 
-                <div className="flex items-start justify-between mb-8 relative z-10">
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300">
-                    <img src="/icons/icon-galzip.jpg" alt="GalZip" className="w-full h-full object-cover" />
+                <div>
+                  <div className="flex items-start justify-between mb-8 relative z-10">
+                    <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300">
+                      <img
+                        src="/icons/fintools.png"
+                        alt="FinTools"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-medium">
+                      Finance
+                    </div>
                   </div>
-                  <div className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-medium">
-                    Media
-                  </div>
+
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-indigo-300 transition-colors">FinTools</h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">
+                    A comprehensive suite of financial calculators and utilities designed for clarity and precision.
+                  </p>
                 </div>
 
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-300 transition-colors">GalZip</h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Compress photos and videos on your iPhone without losing quality. Free up space, keep your memories.
-                </p>
+                <div className="mt-8 flex items-center text-sm font-medium text-white/70 group-hover:text-white transition-colors">
+                  <span>Explore App</span>
+                  <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            {/* App Card 3: GalZip */}
+            <a href="/galzip" className="group block h-full">
+              <div className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 shadow-2xl hover:shadow-blue-500/10 relative overflow-hidden flex flex-col justify-between">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity group-hover:opacity-75"></div>
+
+                <div>
+                  <div className="flex items-start justify-between mb-8 relative z-10">
+                    <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300">
+                      <img src="/icons/icon-galzip.jpg" alt="GalZip" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-medium">
+                      Media
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-300 transition-colors">GalZip</h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">
+                    Compress photos and videos on your iPhone without losing quality. Free up space, keep your memories.
+                  </p>
+                </div>
 
                 <div className="mt-8 flex items-center text-sm font-medium text-white/70 group-hover:text-white transition-colors">
                   <span>Explore App</span>

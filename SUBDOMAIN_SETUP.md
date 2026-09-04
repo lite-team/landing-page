@@ -53,6 +53,7 @@ TTL: Auto or 3600
 ### Step 4: Add All App Subdomains (Optional)
 
 To add subdomains for all your apps, repeat Step 2 for each:
+- `focustag.liteteam.app`
 - `galzip.liteteam.app`
 - `fintools.liteteam.app`
 - `noteflow.liteteam.app`

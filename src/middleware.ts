@@ -3,15 +3,25 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
+  const pathname = request.nextUrl.pathname;
   
-  // Skip if accessing via IP address (contains only numbers and dots)
+  // Skip internal Next.js requests, API routes, or assets
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next();
+  }
+
+  // Skip if accessing via IP address
   const isIPAddress = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?$/.test(hostname);
   if (isIPAddress) {
     return NextResponse.next();
   }
   
-  // Skip if localhost
-  if (hostname.startsWith('localhost')) {
+  // Skip if standard localhost without subdomain
+  if (hostname === 'localhost' || hostname.startsWith('localhost:')) {
     return NextResponse.next();
   }
   
@@ -25,12 +35,12 @@ export function middleware(request: NextRequest) {
   
   // Accept any subdomain and try to route to it
   // If already on the app path, allow it
-  if (request.nextUrl.pathname.startsWith(`/${subdomain}`)) {
+  if (pathname.startsWith(`/${subdomain}`)) {
     return NextResponse.next();
   }
   
   // If on root, rewrite to app page
-  if (request.nextUrl.pathname === '/' || request.nextUrl.pathname === '') {
+  if (pathname === '/' || pathname === '') {
     const url = request.nextUrl.clone();
     url.pathname = `/${subdomain}`;
     return NextResponse.rewrite(url);
@@ -43,12 +53,10 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
+     * - _next
+     * - api
+     * - static files with extensions (.svg, .png, .jpg, .ico, etc.)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+    '/((?!api|_next|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)',
   ],
 };

@@ -6,6 +6,7 @@ import './globals.css';
 const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://liteteam.app'),
   title: 'Lite Team - iOS Applications',
   description: 'Lite team iOS applications and team introduction',
 };
@@ -16,12 +17,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <body className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white" suppressHydrationWarning>
         {children}
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
       </body>
