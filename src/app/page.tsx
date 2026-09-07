@@ -44,7 +44,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-start justify-between mb-8 relative z-10">
                     <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 transition-transform duration-300">
-                      <img src="/icons/focustag.png" alt="FocusTag" className="w-full h-full object-cover" />
+                      <img src="/icons/icon-focustag.jpg" alt="FocusTag" width={80} height={80} className="w-full h-full object-cover" />
                     </div>
                     <div className="px-3 py-1 rounded-full bg-[#C2652A]/20 border border-[#C2652A]/30 text-[#FCA37C] text-xs font-medium">
                       Productivity

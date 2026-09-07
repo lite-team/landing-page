@@ -8,16 +8,16 @@ import Footer from '@/components/Footer';
 // App Store Link Constant
 const APP_STORE_URL = "https://apps.apple.com/app/id6783407321";
 
-// Screenshots List (8 slices)
+// Screenshots List (8 slices) - Optimized JPEG assets
 const screenshots = [
-  { id: 1, src: '/apps/focustag/screenshot-1.png', alt: 'FocusTag Home & Daily Tasks' },
-  { id: 2, src: '/apps/focustag/screenshot-2.png', alt: 'FocusTag Active Pomodoro Focus Timer' },
-  { id: 3, src: '/apps/focustag/screenshot-3.png', alt: 'FocusTag Apple Screen Time App Shielding' },
-  { id: 4, src: '/apps/focustag/screenshot-4.png', alt: 'FocusTag Ambient Audio Soundscapes' },
-  { id: 5, src: '/apps/focustag/screenshot-5.png', alt: 'FocusTag Tag & Preset Customization' },
-  { id: 6, src: '/apps/focustag/screenshot-6.png', alt: 'FocusTag Pomodoro Cycles & Mindful Breaks' },
-  { id: 7, src: '/apps/focustag/screenshot-7.png', alt: 'FocusTag Detailed Statistics & Target Insights' },
-  { id: 8, src: '/apps/focustag/screenshot-8.png', alt: 'FocusTag Lock Screen Live Activities & Dynamic Island' },
+  { id: 1, src: '/apps/focustag/screenshot-1.jpg', alt: 'FocusTag Home & Daily Tasks' },
+  { id: 2, src: '/apps/focustag/screenshot-2.jpg', alt: 'FocusTag Active Pomodoro Focus Timer' },
+  { id: 3, src: '/apps/focustag/screenshot-3.jpg', alt: 'FocusTag Apple Screen Time App Shielding' },
+  { id: 4, src: '/apps/focustag/screenshot-4.jpg', alt: 'FocusTag Ambient Audio Soundscapes' },
+  { id: 5, src: '/apps/focustag/screenshot-5.jpg', alt: 'FocusTag Tag & Preset Customization' },
+  { id: 6, src: '/apps/focustag/screenshot-6.jpg', alt: 'FocusTag Pomodoro Cycles & Mindful Breaks' },
+  { id: 7, src: '/apps/focustag/screenshot-7.jpg', alt: 'FocusTag Detailed Statistics & Target Insights' },
+  { id: 8, src: '/apps/focustag/screenshot-8.jpg', alt: 'FocusTag Lock Screen Live Activities & Dynamic Island' },
 ];
 
 // Target Audiences (from App Store Description)

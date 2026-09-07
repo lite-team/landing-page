@@ -1,7 +1,7 @@
 # Mobile Performance Optimizations
 
 ## Summary
-Optimized both GalZip and FinTools landing pages for significantly better mobile performance.
+Optimized GalZip, FinTools, and FocusTag landing pages for significantly better mobile performance.
 
 ## Changes Made
 
@@ -109,6 +109,7 @@ If still experiencing issues:
 - `/src/app/galzip/page.tsx` - Main component optimizations
 - `/src/app/galzip/galzip.css` - New CSS file for animations
 - `/src/app/fintools/page.tsx` - Main component optimizations
+- `/src/app/focustag/page.tsx` - Main component optimizations & ffmpeg asset compression
 
 ## Notes
 
